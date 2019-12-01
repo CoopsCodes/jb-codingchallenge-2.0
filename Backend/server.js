@@ -18,14 +18,13 @@ app.get("/", (req, res) => {
   axios
     .get(url)
     .then(res => {
-      console.log("Axios response", res);
+      console.log("Axios response", res.data);
+      return res.data;
     })
     .catch(error => {
       console.log("error", error);
     });
   // const url = `http://api.openweathermap.org/data/2.5/weather?q=${req.body.city},${req.body.country}${key1}`;
-  console.log("req", req.body);
-  console.log("req.query", req.query);
 });
 
 // app.get("http://localhost:3000", (req, res) => {
