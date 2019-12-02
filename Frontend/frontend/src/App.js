@@ -19,31 +19,32 @@ class App extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  async callAPI() {
-    await axios.get("http://localhost:5000", {
-      params: {
-        city: this.state.city,
-        country: this.state.country,
-        key: this.state.key
-      }
-    })
-      .then(res => {
-        console.log('Front end response SUCCESS', res)
-        this.setState({ weather: res.data })
+  // async api call, async to ensure responses are handles if there is a delay
+  async callApi() {
+    try {
+      const response = await axios.get("http://localhost:5000/weather", {
+        params: {
+          city: this.state.city,
+          country: this.state.country,
+          key: this.state.key
+        }
       })
-      .catch(function (error) {
-        console.log(error);
-      });
+      console.log('async response', response.data)
+      this.setState({ weather: response.data })
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   handleSubmit(e) {
     e.preventDefault();
     // get our form data out of state
-    this.callAPI()
+    this.callApi()
   }
 
   render = () => {
     const { weather } = this.state;
+    console.log('STATE WEATHER', weather)
     return (
       <div>
         <div className="App">
@@ -84,11 +85,7 @@ class App extends Component {
           </form>
         </div>
         <div>
-          {weather.length === 0 ? (
-            <span>Results:</span>
-          ) : (
-              <span>Results: {weather}</span>
-            )}
+          {/* Display here */}
         </div>
       </div>
     )

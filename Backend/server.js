@@ -1,5 +1,5 @@
 const express = require("express");
-const axios = require("axios");
+const fetch = require("node-fetch");
 var cors = require('cors');
 const app = express();
 const port = 5000;
@@ -25,19 +25,26 @@ const key3 = process.env.API_KEY3;
 const key4 = process.env.API_KEY4;
 const key5 = process.env.API_KEY5;
 
+app.get('/', (req, res) => {
+  res.send('Oh hai Mark, I didnt see you there')
+})
+
 // the get request processing the URL request
-app.get("/", cors(), async (req, res) => {
+app.get("/weather", cors(), async (req, res) => {
   let city = req.query.city;
-  let country = req.query.country
+  let country = req.query.country;
   const url = `http://api.openweathermap.org/data/2.5/weather?q=${city},${country}${key1}`;
-  axios.get(url)
-    .then(res => {
-      console.log('get response', res.data.weather)
-      return res.data.weather
+  const fetchData = fetch(url)
+    .then(res => res.json())
+    .then(data => {
+      console.log('res data', data)
+      res.send({ data });
     })
-    .catch(error => {
-      console.log("error", error);
-    })
+    .catch(err => {
+      console.log('Error', err)
+      res.send({ err })
+    });
+  return fetchData
 })
 
 app.listen(port, err => {
