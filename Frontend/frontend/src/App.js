@@ -67,21 +67,11 @@ class App extends Component {
               <option>
                 Select a key from the list below
               </option>
-              <option value="&appid=7627c7ef2c6d05dc55f2076ceae3b282">
-                Key 1
-              </option>
-              <option value="&appid=d8db4ef69d6910cebf4b52056eebd213">
-                Key 2
-              </option>
-              <option value="&appid=e607647f8751c7b2d7f7554ce610727a">
-                Key 3
-              </option>
-              <option value="&appid=25d5e04ba2b88e9f90e93113b47021d3">
-                Key 4
-              </option>
-              <option value="&appid=d4511417629f42378f67bd2e3430211f">
-                Key 5
-              </option>
+              <option value="KEY1">Key 1</option>
+              <option value="KEY2">Key 2</option>
+              <option value="KEY3">Key 3</option>
+              <option value="KEY4">Key 4</option>
+              <option value="KEY5">Key 5</option>
             </select>
           </label>
           <input type="submit" value="Submit" />

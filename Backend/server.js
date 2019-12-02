@@ -4,20 +4,33 @@ var cors = require('cors');
 const app = express();
 const port = 5000;
 
+// .env use to abstract the keys
+const dotenv = require('dotenv');
+const result = dotenv.config();
+if (result.error) {
+  throw result.error;
+}
+const { parsed: envs } = result;
+module.exports = envs;
+
+// express initialisation
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors())
 
-// const key1 = process.env.API_KEY1;
-const key1 = '&appid=7627c7ef2c6d05dc55f2076ceae3b282'
-const url = `http://api.openweathermap.org/data/2.5/weather?q=Melbourne,Australia&appid=7627c7ef2c6d05dc55f2076ceae3b282`;
+// .env key allocations
+const key1 = process.env.API_KEY1;
+const key2 = process.env.API_KEY2;
+const key3 = process.env.API_KEY3;
+const key4 = process.env.API_KEY4;
+const key5 = process.env.API_KEY5;
 
-// const url = `http://api.openweathermap.org/data/2.5/weather?q=${req.body.city},${req.body.country}${key1}`;
 
+// the get request processing the URL request
 app.get("/", cors(), (req, res) => {
-  console.log('params req city', req.query.city)
-  console.log('params req country', req.query.country)
-  console.log('params req key', req.query.key)
+  let city = req.query.city;
+  let country = req.query.country
+  const url = `http://api.openweathermap.org/data/2.5/weather?q=${city},${country}${key1}`;
   axios.get(url)
     .then(response => {
       console.log('get response', response.data)
@@ -27,19 +40,6 @@ app.get("/", cors(), (req, res) => {
       console.log("error", error);
     })
 })
-
-// app.get("http://localhost:3000", (req, res) => {
-//   const url = "http://api.openweathermap.org/data/2.5/weather?q=";
-//   const key1 = process.env.API_KEY1;
-//   const key2 = process.env.API_KEY2;
-//   const key3 = process.env.API_KEY3;
-//   const key4 = process.env.API_KEY4;
-//   const key5 = process.env.API_KEY5;
-
-//   const locationData = (url1, city, country, key) => {
-//     let newUrl = url1 + city + "," + country + key1;
-//     return newUrl;
-//   };
 
 app.listen(port, err => {
   if (err) {
