@@ -30,7 +30,7 @@ app.get("/", cors(), async (req, res) => {
   let city = req.query.city;
   let country = req.query.country
   const url = `http://api.openweathermap.org/data/2.5/weather?q=${city},${country}${key1}`;
-  let apiCall = await axios.get(url)
+  axios.get(url)
     .then(res => {
       console.log('get response', res.data.weather)
       return res.data.weather
@@ -38,7 +38,6 @@ app.get("/", cors(), async (req, res) => {
     .catch(error => {
       console.log("error", error);
     })
-  return apiCall
 })
 
 app.listen(port, err => {
