@@ -25,20 +25,20 @@ const key3 = process.env.API_KEY3;
 const key4 = process.env.API_KEY4;
 const key5 = process.env.API_KEY5;
 
-
 // the get request processing the URL request
-app.get("/", cors(), (req, res) => {
+app.get("/", cors(), async (req, res) => {
   let city = req.query.city;
   let country = req.query.country
   const url = `http://api.openweathermap.org/data/2.5/weather?q=${city},${country}${key1}`;
-  axios.get(url)
-    .then(response => {
-      console.log('get response', response.data)
-      // return response.data
+  let apiCall = await axios.get(url)
+    .then(res => {
+      console.log('get response', res.data.weather)
+      return res.data.weather
     })
     .catch(error => {
       console.log("error", error);
     })
+  return apiCall
 })
 
 app.listen(port, err => {

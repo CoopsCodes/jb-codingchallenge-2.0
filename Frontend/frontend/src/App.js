@@ -18,18 +18,21 @@ class App extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  callAPI = async () => {
-    try {
-      return await axios.get("http://localhost:5000", {
-        params: {
-          city: this.state.city,
-          country: this.state.country,
-          key: this.state.key
-        }
+  async callAPI() {
+    await axios.get("http://localhost:5000", {
+      params: {
+        city: this.state.city,
+        country: this.state.country,
+        key: this.state.key
+      }
+    })
+      .then(res => {
+        console.log('Front end response SUCCESS', res)
+        return res.data
       })
-    } catch (error) {
-      console.log('callAPI error', error);
-    }
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   handleSubmit(e) {
