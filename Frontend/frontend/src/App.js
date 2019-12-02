@@ -18,25 +18,30 @@ class App extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
+  callAPI = async () => {
+    try {
+      return await axios.get("http://localhost:5000", {
+        params: {
+          city: this.state.city,
+          country: this.state.country,
+          key: this.state.key
+        }
+      })
+    } catch (error) {
+      console.log('callAPI error', error);
+    }
+  }
+
   handleSubmit(e) {
     e.preventDefault();
     // get our form data out of state
-    const { city, country, key } = this.state;
-    console.log("city", this.state.city);
-    axios
-      .get("http://localhost:5000", { city, country, key })
-      .then(function(response) {
-        console.log(response);
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
+    this.callAPI()
   }
 
   render = () => {
     return (
       <div className="App">
-        <h1>Weather Search</h1>
+        {/* <h1>Weather Search</h1> */}
         <form className="form" onSubmit={this.handleSubmit}>
           <div className="formFields">
             <label>City</label>
@@ -59,6 +64,9 @@ class App extends Component {
           <label>
             Key Selections
             <select name="key" onChange={this.handleChange}>
+              <option>
+                Select a key from the list below
+              </option>
               <option value="&appid=7627c7ef2c6d05dc55f2076ceae3b282">
                 Key 1
               </option>
@@ -79,8 +87,7 @@ class App extends Component {
           <input type="submit" value="Submit" />
         </form>
       </div>
-    );
-  };
+    )
+  }
 }
-
 export default App;

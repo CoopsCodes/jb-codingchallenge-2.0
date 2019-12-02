@@ -1,31 +1,32 @@
 const express = require("express");
-const axios = require("axios").default;
+const axios = require("axios");
+var cors = require('cors');
 const app = express();
 const port = 5000;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cors())
 
-const key1 = process.env.API_KEY1;
+// const key1 = process.env.API_KEY1;
+const key1 = '&appid=7627c7ef2c6d05dc55f2076ceae3b282'
 const url = `http://api.openweathermap.org/data/2.5/weather?q=Melbourne,Australia&appid=7627c7ef2c6d05dc55f2076ceae3b282`;
 
-// app.post("/", (req, res) => {
-//   const url = `http://api.openweathermap.org/data/2.5/weather?q=${req.body.city},${req.body.country}${key1}`;
-//   console.log(req.body);
-// });
+// const url = `http://api.openweathermap.org/data/2.5/weather?q=${req.body.city},${req.body.country}${key1}`;
 
-app.get("/", (req, res) => {
-  axios
-    .get(url)
-    .then(res => {
-      console.log("Axios response", res.data);
-      return res.data;
+app.get("/", cors(), (req, res) => {
+  console.log('params req city', req.query.city)
+  console.log('params req country', req.query.country)
+  console.log('params req key', req.query.key)
+  axios.get(url)
+    .then(response => {
+      console.log('get response', response.data)
+      // return response.data
     })
     .catch(error => {
       console.log("error", error);
-    });
-  // const url = `http://api.openweathermap.org/data/2.5/weather?q=${req.body.city},${req.body.country}${key1}`;
-});
+    })
+})
 
 // app.get("http://localhost:3000", (req, res) => {
 //   const url = "http://api.openweathermap.org/data/2.5/weather?q=";
@@ -39,13 +40,6 @@ app.get("/", (req, res) => {
 //     let newUrl = url1 + city + "," + country + key1;
 //     return newUrl;
 //   };
-
-//   const apiUrl = locationData(url, city, country, key);
-
-//   axios.get(apiUrl).then(res => {
-//     console.log("Axios response", res.data);
-//   });
-// });
 
 app.listen(port, err => {
   if (err) {
