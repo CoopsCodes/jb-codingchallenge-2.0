@@ -29,8 +29,11 @@ class App extends Component {
           key: this.state.key
         }
       })
+      if (response.data.data.cod === "404") {
+        return alert(response.data.data.message)
+      }
       console.log('async response', response.data)
-      this.setState({ weather: response.data })
+      this.setState({ weather: response })
     } catch (err) {
       console.log(err)
     }
@@ -44,6 +47,7 @@ class App extends Component {
 
   render = () => {
     const { weather } = this.state;
+    console.log('weather', weather)
     return (
       <div>
         <div className="App">
@@ -82,14 +86,15 @@ class App extends Component {
             </label>
             <input type="submit" value="Submit" />
           </form>
-
           <div>
             {/* Display here */}
             {/* <h1>Weather Response</h1> */}
-            {weather.length === 0 ? <p>Search</p> :
-              <ul >
-                {weather.data.weather.map(w => <li key={w.id}>{w.description}</li>)}
-              </ul>
+            {
+              weather.length === 0
+                ? <p>Search</p>
+                : <ul>
+                  {weather.data.weather.map(w => <li key={w.id}>{w.description}</li>)}
+                </ul>
             }
           </div>
         </div>
