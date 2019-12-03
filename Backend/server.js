@@ -18,13 +18,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors())
 
-// .env key allocations
-const key1 = process.env.API_KEY1;
-const key2 = process.env.API_KEY2;
-const key3 = process.env.API_KEY3;
-const key4 = process.env.API_KEY4;
-const key5 = process.env.API_KEY5;
-
 app.get('/', (req, res) => {
   res.send('Oh hai Mark, I didnt see you there')
 })
@@ -33,7 +26,29 @@ app.get('/', (req, res) => {
 app.get("/weather", cors(), async (req, res) => {
   let city = req.query.city;
   let country = req.query.country;
-  const url = `http://api.openweathermap.org/data/2.5/weather?q=${city},${country}${key1}`;
+  let keyParam = req.query.key
+
+  switch (keyParam) {
+    case "KEY1":
+      key = process.env.API_KEY1
+      break;
+    case "KEY2":
+      key = process.env.API_KEY2
+      break;
+    case "KEY3":
+      key = process.env.API_KEY3
+      break;
+    case "KEY4":
+      key = process.env.API_KEY4
+      break;
+    case "KEY5":
+      key = process.env.API_KEY5
+      break;
+    default:
+      "NA"
+  }
+  // console.log('key', key)
+  const url = `http://api.openweathermap.org/data/2.5/weather?q=${city},${country}${key}`;
   const fetchData = fetch(url)
     .then(res => res.json())
     .then(data => {

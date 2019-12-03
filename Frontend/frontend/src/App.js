@@ -29,11 +29,12 @@ class App extends Component {
           key: this.state.key
         }
       })
-      if (response.data.data.cod === "404") {
+      if (response.data.data.cod !== 200) {
+        console.log('response.data.data.cod', response)
         return alert(response.data.data.message)
+      } else {
+        this.setState({ weather: response.data })
       }
-      console.log('async response', response.data)
-      this.setState({ weather: response })
     } catch (err) {
       console.log(err)
     }
