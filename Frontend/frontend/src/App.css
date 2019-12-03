@@ -20,3 +20,12 @@
 .App-link {
   color: #09d3ac;
 }
+ul {
+  list-style-type: none;
+ }
+ input {
+  margin: 5px 5px;
+ }
+ select {
+  margin: 5px 5px;
+ }

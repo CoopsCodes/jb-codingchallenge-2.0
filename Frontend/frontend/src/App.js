@@ -30,7 +30,6 @@ class App extends Component {
         }
       })
       if (response.data.data.cod !== 200) {
-        console.log('response.data.data.cod', response)
         return alert(response.data.data.message)
       } else {
         this.setState({ weather: response.data })
@@ -52,7 +51,7 @@ class App extends Component {
     return (
       <div>
         <div className="App">
-          {/* <h1>Weather Search</h1> */}
+          <h1>Weather Search</h1>
           <form className="form" onSubmit={this.handleSubmit}>
             <div className="formFields">
               <label>City</label>
@@ -92,9 +91,9 @@ class App extends Component {
             {/* <h1>Weather Response</h1> */}
             {
               weather.length === 0
-                ? <p>Search</p>
+                ? <p>Search:</p>
                 : <ul>
-                  {weather.data.weather.map(w => <li key={w.id}>{w.description}</li>)}
+                  <p>Results:</p>{weather.data.weather.map(w => <li key={w.id}>{w.description}</li>)}
                 </ul>
             }
           </div>
