@@ -1,4 +1,5 @@
 const express = require("express");
+const rateLimit = require("express-rate-limit");
 const fetch = require("node-fetch");
 var cors = require('cors');
 const app = express();
@@ -22,12 +23,19 @@ app.get('/', (req, res) => {
   res.send('Oh hai Mark, I didnt see you there')
 })
 
+const limiter = rateLimit({
+  windowMs: 60 * 1000,
+  max: 5,
+  message: {
+    error: "Too many requests"
+  }
+});
+
 // the get request processing the URL request
-app.get("/weather", cors(), async (req, res) => {
+app.get("/weather", cors(), limiter, async (req, res, next) => {
   let city = req.query.city;
   let country = req.query.country;
   let keyParam = req.query.key
-
   switch (keyParam) {
     case "KEY1":
       key = process.env.API_KEY1
@@ -45,7 +53,7 @@ app.get("/weather", cors(), async (req, res) => {
       key = process.env.API_KEY5
       break;
     default:
-      "NA"
+      key = "NA"
   }
   // console.log('key', key)
   const url = `http://api.openweathermap.org/data/2.5/weather?q=${city},${country}${key}`;

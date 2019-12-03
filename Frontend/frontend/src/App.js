@@ -34,8 +34,10 @@ class App extends Component {
       } else {
         this.setState({ weather: response.data })
       }
+      console.log('GET response', response)
     } catch (err) {
-      console.log(err)
+      console.log('catch error', err)
+      return alert(err + ` 429: Too Many Requests`)
     }
   }
 
