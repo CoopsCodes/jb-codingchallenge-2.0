@@ -9,7 +9,7 @@ class App extends Component {
       city: "",
       country: "",
       key: "",
-      weather: []
+      weather: [],
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -44,7 +44,6 @@ class App extends Component {
 
   render = () => {
     const { weather } = this.state;
-    console.log('STATE WEATHER', weather)
     return (
       <div>
         <div className="App">
@@ -83,9 +82,16 @@ class App extends Component {
             </label>
             <input type="submit" value="Submit" />
           </form>
-        </div>
-        <div>
-          {/* Display here */}
+
+          <div>
+            {/* Display here */}
+            {/* <h1>Weather Response</h1> */}
+            {weather.length === 0 ? <p>Search</p> :
+              <ul >
+                {weather.data.weather.map(w => <li key={w.id}>{w.description}</li>)}
+              </ul>
+            }
+          </div>
         </div>
       </div>
     )
