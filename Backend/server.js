@@ -52,7 +52,6 @@ app.get("/weather", cors(), async (req, res) => {
   const fetchData = fetch(url)
     .then(res => res.json())
     .then(data => {
-      console.log('res data', data)
       res.send({ data });
     })
     .catch(err => {
