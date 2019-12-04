@@ -47,7 +47,6 @@ app.get("/weather", cors(), async (req, res, next) => {
     default:
       key = "NA"
   }
-  console.log('key', key)
   const url = `http://api.openweathermap.org/data/2.5/weather?q=${city},${country}${key}`;
   const fetchData = fetch(url)
     .then(res => res.json())

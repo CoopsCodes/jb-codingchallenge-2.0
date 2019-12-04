@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 import "./App.css";
+const moment = require("moment");
+moment().format();
 
 class App extends Component {
   constructor(props) {
@@ -10,6 +12,14 @@ class App extends Component {
       country: "",
       key: "",
       weather: [],
+      callsMade1: 0,
+      callsMade2: 0,
+      callsMade3: 0,
+      callsMade4: 0,
+      callsMade5: 0,
+      keyCalls: [],
+      lockOutTime: [],
+      timeNow: []
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -37,23 +47,47 @@ class App extends Component {
       console.log('GET response', response)
     } catch (err) {
       console.log('catch error', err)
-      return alert(err + ` 429: Too Many Requests`)
+      return alert(err)
     }
   }
 
   handleSubmit(e) {
     e.preventDefault();
+
+    if (this.state.key === "KEY1") {
+      this.setState(prevState => ({ timeNow: { "KEY1": moment().format("LLL"), callsMade1: prevState.callsMade1++ } }));
+    } else if (this.state.key === "KEY2") {
+      this.setState(prevState => ({ timeNow: { "KEY2": moment().format("LLL"), callsMade2: prevState.callsMade2++ } }));
+    } else if (this.state.key === "KEY3") {
+      this.setState(prevState => ({ timeNow: { "KEY3": moment().format("LLL"), callsMade3: prevState.callsMade3++ } }));
+    } else if (this.state.key === "KEY4") {
+      this.setState(prevState => ({ timeNow: { "KEY4": moment().format("LLL"), callsMade4: prevState.callsMade4++ } }));
+    } else if (this.state.key === "KEY5") {
+      this.setState(prevState => ({ timeNow: { "KEY5": moment().format("LLL"), callsMade5: prevState.callsMade5++ } }));
+    } else {
+      return null
+    }
+
+    if (this.state.lockOutTime === "") {
+      this.setState({
+        lockOutTime: {
+          "KEY1": moment()
+            .add(1, "hour")
+            .format("LLL")
+        }
+      });
+    }
+
     // get our form data out of state
     this.callApi()
   }
 
   render = () => {
     const { weather } = this.state;
-    console.log('weather', weather)
     return (
       <div>
         <div className="App">
-          <h1>Weather Search</h1>
+          {/* <h1>Weather Search</h1> */}
           <form className="form" onSubmit={this.handleSubmit}>
             <div className="formFields">
               <label>City</label>
