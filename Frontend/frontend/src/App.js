@@ -55,7 +55,7 @@ class App extends Component {
     return (
       <div>
         <div className="App">
-          <h1>Weather Search</h1>
+          {/* <h1>Weather Search</h1> */}
           <form className="form" onSubmit={this.handleSubmit}>
             <div className="formFields">
               <label>City</label>
@@ -91,17 +91,17 @@ class App extends Component {
 
           {/* Displaying the weather data from state, Mapping is used because it can often be part of an array */}
           <div>
-            <h1>Weather Response</h1>
+            {/* <h2>Weather Response</h2> */}
             {weather.length === 0 ? (
               <p>Search:</p>
             ) : (
-              <ul>
-                <p>Results:</p>
-                {weather.data.weather.map(w => (
-                  <li key={w.id}>{w.description}</li>
-                ))}
-              </ul>
-            )}
+                <ul>
+                  <p>Results:</p>
+                  {weather.data.weather.map(w => (
+                    <li key={w.id}>{w.description}</li>
+                  ))}
+                </ul>
+              )}
           </div>
         </div>
       </div>

@@ -1,5 +1,6 @@
 const express = require("express");
 const fetch = require("node-fetch");
+const moment = require("moment");
 const cors = require("cors");
 const app = express();
 const port = 5000;
@@ -24,9 +25,18 @@ app.get("/", (req, res) => {
 
 const apiKeyStore = {};
 exceededApiUsage = key => {
+
   if (apiKeyStore[key] === undefined) {
     apiKeyStore[key] = 0;
   }
+
+  if (apiKeyStore[key] === 0) {
+    apiKeyStore[key] = {
+      timeout: moment().add(1, "hour").format("LLL")
+    }
+    console.log(apiKeyStore[key].timeout)
+  }
+
   if (apiKeyStore[key] >= 5) {
     return true;
   } else {
