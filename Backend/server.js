@@ -34,6 +34,7 @@ exceededApiUsage = key => {
     return false;
   }
 };
+
 // the get request processing the URL request
 app.get("/weather", cors(), async (req, res, next) => {
   let city = req.query.city;
@@ -59,7 +60,7 @@ app.get("/weather", cors(), async (req, res, next) => {
       key = "NA";
   }
   if (exceededApiUsage(key)) {
-    res.status(429).send({ err: "Exceeded API Usaged Amount" });
+    res.status(429).send({ err: "Exceeded API Usage Amount" });
     return;
   }
 
