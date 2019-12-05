@@ -27,20 +27,17 @@ const apiKeyStore = {};
 exceededApiUsage = key => {
 
   if (apiKeyStore[key] === undefined) {
-    apiKeyStore[key] = 0;
-  }
-
-  if (apiKeyStore[key] === 0) {
     apiKeyStore[key] = {
+      count: 0,
       timeout: moment().add(1, "hour").format("LLL")
     }
-    console.log(apiKeyStore[key].timeout)
+    // console.log(apiKeyStore[key].timeout)
   }
 
-  if (apiKeyStore[key] >= 5) {
+  if (apiKeyStore[key].count >= 5) {
     return true;
   } else {
-    apiKeyStore[key] += 1;
+    apiKeyStore[key].count += 1;
     return false;
   }
 };
