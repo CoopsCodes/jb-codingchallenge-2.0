@@ -40,7 +40,7 @@ class App extends Component {
       }
       // console.log("GET response", response);
     } catch (err) {
-      return alert(err);
+      return alert(`${err}.\n\nIf Error 429, your Key has been used too many times.\n\nA list of status codes can be found here.\n\nhttps://en.wikipedia.org/wiki/List_of_HTTP_status_codes`);
     }
   }
 
