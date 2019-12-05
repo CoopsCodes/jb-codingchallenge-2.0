@@ -99,75 +99,82 @@ class App extends Component {
     if (this.state.key === "KEY5" && this.state.timeNow5 === '') {
       this.setState({ timeNow5: moment().format("LLL") });
     }
+    // if (
+    //   (this.state.key === "KEY1" && this.state.callsMade1 <= 4 &&
+    //     this.state.lockOutTime1 === "" &&
+    //     this.state.timeNow1 === "") ||
+    //   (this.state.key === "KEY1" && this.state.callsMade1 <= 4 && this.state.lockOutTime1 > this.state.timeNow1)
+    // ) {
+    //   this.callApi()
+    //   this.setState(state => ({
+    //     callsMade1: state.callsMade1 + 1
+    //   }));
+    // } else {
+    //   alert(`You've used all the key allocations on this selection right now`);
+    // }
+
     if (
-      (this.state.callsMade1 <= 4 &&
-        this.state.lockOutTime1 === "" &&
-        this.state.timeNow1 === "") ||
-      (this.state.callsMade1 <= 4 && this.state.lockOutTime1 > this.state.timeNow1)
+      (this.state.key === "KEY1" && this.state.callsMade1 <= 4) || (this.state.key === "KEY1" && this.state.callsMade1 <= 4 && this.state.lockOutTime1 > this.state.timeNow1)
     ) {
       this.callApi()
       this.setState(state => ({
         callsMade1: state.callsMade1 + 1
       }));
     } else {
-      alert(`You've used all the key allocations on this selection right now`);
+      alert(`You've used all the key allocations on this selection right now please try again after ${this.state.lockOutTime1}`);
     }
 
     if (
-      (this.state.callsMade2 <= 4 &&
-        this.state.lockOutTime2 === "" &&
-        this.state.timeNow2 === "") ||
-      (this.state.callsMade2 <= 4 && this.state.lockOutTime2 > this.state.timeNow2)
+      (this.state.key === "KEY2" && this.state.callsMade2 <= 4) || (this.state.key === "KEY2" && this.state.callsMade2 <= 4 && this.state.lockOutTime2 > this.state.timeNow2)
     ) {
-      this.callApi()
       this.setState(state => ({
         callsMade2: state.callsMade2 + 1
       }));
     } else {
-      alert(`You've used all the key allocations on this selection right now`);
+      alert(`You've used all the key allocations on this selection right now please try again after ${this.state.lockOutTime2}`);
     }
 
-    if (
-      (this.state.callsMade3 <= 4 &&
-        this.state.lockOutTime3 === "" &&
-        this.state.timeNow3 === "") ||
-      (this.state.callsMade3 <= 4 && this.state.lockOutTime3 > this.state.timeNow3)
-    ) {
-      this.callApi()
-      this.setState(state => ({
-        callsMade3: state.callsMade3 + 1
-      }));
-    } else {
-      alert(`You've used all the key allocations on this selection right now`);
-    }
+    //   if (
+    //     (this.state.callsMade3 <= 4 &&
+    //       this.state.lockOutTime3 === "" &&
+    //       this.state.timeNow3 === "") ||
+    //     (this.state.callsMade3 <= 4 && this.state.lockOutTime3 > this.state.timeNow3)
+    //   ) {
+    //     this.callApi()
+    //     this.setState(state => ({
+    //       callsMade3: state.callsMade3 + 1
+    //     }));
+    //   } else {
+    //     alert(`You've used all the key allocations on this selection right now`);
+    //   }
 
-    if (
-      (this.state.callsMade4 <= 4 &&
-        this.state.lockOutTime4 === "" &&
-        this.state.timeNow4 === "") ||
-      (this.state.callsMade4 <= 4 && this.state.lockOutTime4 > this.state.timeNow4)
-    ) {
-      this.callApi()
-      this.setState(state => ({
-        callsMade4: state.callsMade4 + 1
-      }));
-    } else {
-      alert(`You've used all the key allocations on this selection right now`);
-    }
+    //   if (
+    //     (this.state.callsMade4 <= 4 &&
+    //       this.state.lockOutTime4 === "" &&
+    //       this.state.timeNow4 === "") ||
+    //     (this.state.callsMade4 <= 4 && this.state.lockOutTime4 > this.state.timeNow4)
+    //   ) {
+    //     this.callApi()
+    //     this.setState(state => ({
+    //       callsMade4: state.callsMade4 + 1
+    //     }));
+    //   } else {
+    //     alert(`You've used all the key allocations on this selection right now`);
+    //   }
 
-    if (
-      (this.state.callsMade5 <= 4 &&
-        this.state.lockOutTime5 === "" &&
-        this.state.timeNow5 === "") ||
-      (this.state.callsMade5 <= 4 && this.state.lockOutTime5 > this.state.timeNow5)
-    ) {
-      this.callApi()
-      this.setState(state => ({
-        callsMade5: state.callsMade5 + 1
-      }));
-    } else {
-      alert(`You've used all the key allocations on this selection right now`);
-    }
+    //   if (
+    //     (this.state.callsMade5 <= 4 &&
+    //       this.state.lockOutTime5 === "" &&
+    //       this.state.timeNow5 === "") ||
+    //     (this.state.callsMade5 <= 4 && this.state.lockOutTime5 > this.state.timeNow5)
+    //   ) {
+    //     this.callApi()
+    //     this.setState(state => ({
+    //       callsMade5: state.callsMade5 + 1
+    //     }));
+    //   } else {
+    //     alert(`You've used all the key allocations on this selection right now`);
+    //   }
   }
 
   render = () => {
