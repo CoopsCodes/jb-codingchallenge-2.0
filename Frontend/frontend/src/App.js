@@ -9,7 +9,8 @@ class App extends Component {
       city: "",
       country: "",
       key: "",
-      weather: []
+      weather: [],
+      icon: ""
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -36,11 +37,16 @@ class App extends Component {
         return alert(response.data.data.message);
       } else {
         // Else we are setting the OK response to state.
-        this.setState({ weather: response.data });
+        this.setState({
+          weather: response.data,
+          icon: response.data.data.weather.map(m => m.icon)
+        });
       }
       // console.log("GET response", response);
     } catch (err) {
-      return alert(`${err}.\n\nIf Error 429, your Key has been used too many times.\n\nA list of status codes can be found here.\n\nhttps://en.wikipedia.org/wiki/List_of_HTTP_status_codes`);
+      return alert(
+        `${err}.\n\nIf Error 429, your Key has been used too many times.\n\nA list of status codes can be found here.\n\nhttps://en.wikipedia.org/wiki/List_of_HTTP_status_codes`
+      );
     }
   }
 
@@ -51,34 +57,32 @@ class App extends Component {
   }
 
   render = () => {
-    const { weather } = this.state;
+    const { weather, icon } = this.state;
     return (
-      <div>
-        <div className="App">
-          {/* <h1>Weather Search</h1> */}
+      <div className="App">
+        <div>
+          <h1>Weather Search</h1>
           <form className="form" onSubmit={this.handleSubmit}>
             <div className="formFields">
-              <label>City</label>
               <input
                 type="text"
                 name="city"
+                placeholder="City"
                 onChange={this.handleChange}
                 required
               />
-            </div>
-            <div className="formFields">
-              <label>Country</label>
               <input
                 type="text"
                 name="country"
+                placeholder="Country"
                 onChange={this.handleChange}
                 required
               />
             </div>
             <label>
-              Key Selections
+              Key Selection
               <select name="key" onChange={this.handleChange}>
-                <option>Select a key from the list below</option>
+                <option>Select a key from the list</option>
                 <option value="KEY1">Key 1</option>
                 <option value="KEY2">Key 2</option>
                 <option value="KEY3">Key 3</option>
@@ -86,22 +90,31 @@ class App extends Component {
                 <option value="KEY5">Key 5</option>
               </select>
             </label>
-            <input type="submit" value="Submit" />
+            <input className="submitButton" type="submit" value="Search" />
           </form>
 
           {/* Displaying the weather data from state, Mapping is used because it can often be part of an array */}
-          <div>
-            {/* <h2>Weather Response</h2> */}
-            {weather.length === 0 ? (
-              <p>Search:</p>
-            ) : (
+          <div className="responseContainer">
+            <h1>Weather Response</h1>
+            <div className="searchResponse">
+              {weather.length === 0 ? (
+                <br />
+              ) : (
                 <ul>
-                  <p>Results:</p>
                   {weather.data.weather.map(w => (
                     <li key={w.id}>{w.description}</li>
                   ))}
                 </ul>
               )}
+              <div className="responseIcons">
+                {icon === "" ? null : (
+                  <img
+                    alt="Weather Icon"
+                    src={`http://openweathermap.org/img/wn/${icon}@2x.png`}
+                  />
+                )}
+              </div>
+            </div>
           </div>
         </div>
       </div>

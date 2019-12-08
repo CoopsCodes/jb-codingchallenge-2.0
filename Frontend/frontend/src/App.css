@@ -1,31 +1,70 @@
+* {
+  margin: 0;
+  padding: 0;
+}
 .App {
+  width: 100vw;
+  height: 100vh;
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  color: #695e70;
+  background: rgb(232, 253, 255);
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.form {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  width: 500px;
+  height: 200px;
+}
+.formFields {
+  width: 100%;
+  display: flex;
 }
 
-.App-link {
-  color: #09d3ac;
+.submitButton {
+  height: 40px;
+  width: 100%;
+  color: rgb(232, 253, 255);
+  background: #504755;
+  font-size: 20px;
 }
+
+.responseContainer {
+  padding-top: 20px;
+  border-top: 1px#504755 solid;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 500px;
+  height: 200px;
+}
+
+.searchResponse {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
 ul {
   list-style-type: none;
- }
- input {
+}
+li {
+  font-size: 40px;
+}
+input {
   margin: 5px 5px;
- }
- select {
+  width: 50%;
+  height: 30px;
+}
+select {
   margin: 5px 5px;
- }
+  width: 100%;
+  height: 30px;
+}

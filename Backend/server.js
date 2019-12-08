@@ -27,21 +27,25 @@ app.get("/", (req, res) => {
 // apiKeyStore is passing the Keys through and assigning each a counter and an initial call time adding an hour to signify the time it is able to be called again.
 const apiKeyStore = {};
 exceededApiUsage = key => {
-  const now = moment().format("LLL")
+  const now = moment().format("LLL");
 
   if (apiKeyStore[key] === undefined) {
     apiKeyStore[key] = {
       count: 0,
-      timeout: moment().add(15, "seconds").format("LLL")
-    }
+      timeout: moment()
+        .add(1, "hour")
+        .format("LLL")
+    };
   }
 
   // checking if the count is greather than 5 and the time has lapsed resetting the counter and timer
   if (apiKeyStore[key].count >= 5 && apiKeyStore[key].timeout < now) {
     apiKeyStore[key] = {
       count: 0,
-      timeout: moment().add(15, "seconds").format("LLL")
-    }
+      timeout: moment()
+        .add(1, "hour")
+        .format("LLL")
+    };
   }
 
   if (apiKeyStore[key].count >= 5) {
@@ -50,10 +54,10 @@ exceededApiUsage = key => {
   } else {
     // Finally stating the counter isnt over its limit and increments the counter
     apiKeyStore[key].count += 1;
-    console.log(apiKeyStore[key])
+    console.log(apiKeyStore[key]);
     return false;
   }
-}
+};
 
 // the get request processing the URL request
 app.get("/weather", async (req, res, next) => {
